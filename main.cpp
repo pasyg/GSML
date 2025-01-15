@@ -6,6 +6,8 @@
 import gsml.nn.dense;
 import gsml.nn.activation.relu;
 import gsml.nn.loss.mse;
+import gsml.nn.loss.sse;
+import gsml.nn.loss.cel;
 
 #include <random>
 
@@ -45,7 +47,19 @@ int main() {
     auto target     = rand_matrix(5, 3);
 
     auto loss = gsml::loss::mse(prediction, target);
-    auto grad = gsml::loss::mse_gradient(prediction, target);
+    auto grad = gsml::loss::mse_grad(prediction, target);
+
+    std::cout << "Loss: " << loss << std::endl;
+    std::cout << "Gradient:\n" << grad << std::endl;
+
+    loss = gsml::loss::sse(prediction, target);
+    grad = gsml::loss::sse_grad(prediction, target);
+
+    std::cout << "Loss: " << loss << std::endl;
+    std::cout << "Gradient:\n" << grad << std::endl;
+
+    loss = gsml::loss::cel(prediction, target);
+    grad = gsml::loss::cel_gradient(prediction, target);
 
     std::cout << "Loss: " << loss << std::endl;
     std::cout << "Gradient:\n" << grad << std::endl;

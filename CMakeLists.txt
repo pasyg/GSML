@@ -11,6 +11,15 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(Boost REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
+add_library(gsml_concepts)
+target_sources(gsml_concepts
+    PUBLIC
+    FILE_SET CXX_MODULES
+    BASE_DIRS
+    FILES
+        src/concepts/matrix.cpp
+)
+
 add_library(gsml_nn)
 target_sources(gsml_nn
     PUBLIC 
@@ -27,8 +36,11 @@ target_sources(gsml_nn
         src/nn/activation/sigmoid.cpp
         src/nn/activation/tanh.cpp
 
+        src/nn/loss/cel.cpp
         src/nn/loss/mse.cpp
+        src/nn/loss/sse.cpp
 )
+target_link_libraries(gsml_nn gsml_concepts)
 
 add_library(gsml_nn_optimizer)
 target_sources(gsml_nn_optimizer
@@ -39,9 +51,11 @@ target_sources(gsml_nn_optimizer
         src/nn/optimizer/adam.cpp
         src/nn/optimizer/optimizer.cpp
 )
+target_link_libraries(gsml_nn_optimizer gsml_concepts)
 
 
 add_executable(gsml main.cpp)
 target_link_libraries (gsml Eigen3::Eigen 
+                            gsml_concepts
                             gsml_nn
                             gsml_nn_optimizer)
