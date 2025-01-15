@@ -31,17 +31,17 @@ int main() {
     auto input = rand_matrix(2, 1);
     std::cout << "Input:\n" << input << std::endl;
 
-    auto activatad = gsml::activation::reluDerivative(input);
-    std::cout << "Input after ReLuDerivative:\n" << activatad << std::endl;
+    auto activated = gsml::activation::reluDerivative(input);
+    std::cout << "Input after ReLuDerivative:\n" << activated << std::endl;
 
     auto out = layer.forward(input); 
     std::cout << "Output:\n" << out << std::endl;
     
-    auto activated = gsml::activation::relu(out);
-    std::cout << "Output after ReLu:\n" << activated << std::endl;
+    auto activated_out = gsml::activation::relu(out);
+    std::cout << "Output after ReLu:\n" << activated_out << std::endl;
 
-    auto activetad = gsml::activation::reluDerivative(out);
-    std::cout << "Output after ReLuDerivative:\n" << activetad << std::endl;
+    auto activated_grad = gsml::activation::reluDerivative(out);
+    std::cout << "Output after ReLuDerivative:\n" << activated_grad << std::endl;
 
     auto prediction = rand_matrix(5, 3);
     auto target     = rand_matrix(5, 3);
